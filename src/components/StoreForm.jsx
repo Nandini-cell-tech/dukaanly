@@ -214,40 +214,62 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
           </div>
         </div>
 
-        {/* Wizard Steps Navigation Bar */}
-        <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-200/80 mb-8">
-          <div className="grid grid-cols-3 gap-2 text-center text-sm font-semibold">
+        {/* Wizard Steps Navigation Bar with Animated Progress Track */}
+        <div className="bg-white rounded-3xl p-4 shadow-sm border border-gray-200/80 mb-8 space-y-3">
+          {/* Progress Header */}
+          <div className="flex items-center justify-between text-xs font-bold text-gray-600 px-1">
+            <span className="flex items-center gap-1.5 text-[#6B1F2D]">
+              <Sparkles className="w-3.5 h-3.5 text-[#C96F56]" />
+              <span>Step {activeStep} of 3: {activeStep === 1 ? "Business Profile" : activeStep === 2 ? "Brand Colors & Styling" : "Product Catalog"}</span>
+            </span>
+            <span className="font-mono text-[11px] bg-[#6B1F2D]/10 text-[#6B1F2D] px-2.5 py-0.5 rounded-full font-bold">
+              {activeStep === 1 ? "33% Completed" : activeStep === 2 ? "66% Completed" : "90% Ready"}
+            </span>
+          </div>
+          {/* Animated Progress Bar */}
+          <div className="w-full h-2 bg-[#F5EFEB] rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-[#6B1F2D] via-[#C96F56] to-[#557153] rounded-full transition-all duration-500 ease-out"
+              style={{ width: activeStep === 1 ? "33.33%" : activeStep === 2 ? "66.66%" : "100%" }}
+            />
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 text-center text-sm font-semibold pt-1">
             <button
               onClick={() => setActiveStep(1)}
-              className={`py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all ${
+              className={`py-2.5 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all duration-200 ${
                 activeStep === 1
-                  ? "bg-[#6B1F2D] text-white shadow"
-                  : "text-gray-600 hover:bg-gray-100"
+                  ? "bg-[#6B1F2D] text-white shadow-md shadow-[#6B1F2D]/20 ring-2 ring-[#6B1F2D]/20"
+                  : activeStep > 1
+                    ? "bg-[#557153]/10 text-[#557153] hover:bg-[#557153]/20"
+                    : "text-gray-600 hover:bg-gray-100"
               }`}
             >
-              <Store className="w-4 h-4" />
+              {activeStep > 1 ? <Check className="w-4 h-4 text-[#557153]" /> : <Store className="w-4 h-4" />}
               <span className="hidden sm:inline">1. Business Profile</span>
               <span className="sm:hidden">1. Profile</span>
             </button>
 
             <button
               onClick={() => setActiveStep(2)}
-              className={`py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all ${
+              className={`py-2.5 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all duration-200 ${
                 activeStep === 2
-                  ? "bg-[#6B1F2D] text-white shadow"
-                  : "text-gray-600 hover:bg-gray-100"
+                  ? "bg-[#6B1F2D] text-white shadow-md shadow-[#6B1F2D]/20 ring-2 ring-[#6B1F2D]/20"
+                  : activeStep > 2
+                    ? "bg-[#557153]/10 text-[#557153] hover:bg-[#557153]/20"
+                    : "text-gray-600 hover:bg-gray-100"
               }`}
             >
-              <Palette className="w-4 h-4" />
+              {activeStep > 2 ? <Check className="w-4 h-4 text-[#557153]" /> : <Palette className="w-4 h-4" />}
               <span className="hidden sm:inline">2. Brand Colors</span>
               <span className="sm:hidden">2. Colors</span>
             </button>
 
             <button
               onClick={() => setActiveStep(3)}
-              className={`py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all ${
+              className={`py-2.5 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all duration-200 ${
                 activeStep === 3
-                  ? "bg-[#6B1F2D] text-white shadow"
+                  ? "bg-[#6B1F2D] text-white shadow-md shadow-[#6B1F2D]/20 ring-2 ring-[#6B1F2D]/20"
                   : "text-gray-600 hover:bg-gray-100"
               }`}
             >
@@ -286,7 +308,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                       onClick={() => handleCategoryChange(cat.id)}
                       className={`p-3 rounded-xl border text-left flex items-center gap-3 transition-all ${
                         categoryId === cat.id
-                          ? "border-[#6B1F2D] bg-[#6B1F2D]/5 ring-2 ring-[#6B1F2D]/20"
+                          ? "border-[#6B1F2D] bg-[#6B1F2D]/5 ring-2 ring-[#6B1F2D]/20 shadow-xs"
                           : "border-gray-200 hover:border-gray-300 bg-white"
                       }`}
                     >
@@ -310,7 +332,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
                   placeholder="e.g. Mitti & Clay Studio, Kavya Sarees"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6B1F2D] text-gray-900 font-semibold"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[#6B1F2D] focus:ring-2 focus:ring-[#6B1F2D]/20 text-gray-900 font-semibold transition-all"
                 />
               </div>
 
@@ -323,9 +345,10 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                   <button
                     type="button"
                     onClick={handleAutoSuggestTagline}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#6B1F2D] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6B1F2D] bg-[#F2D7C9]/40 hover:bg-[#F2D7C9] px-2.5 py-1 rounded-lg border border-[#C96F56]/30 transition-all shadow-xs group"
                   >
-                    <Wand2 className="w-3.5 h-3.5" /> Suggest New Tagline
+                    <Wand2 className="w-3.5 h-3.5 text-[#C96F56] group-hover:rotate-12 transition-transform" />
+                    <span>Suggest New Tagline</span>
                   </button>
                 </div>
                 <input
@@ -333,7 +356,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
                   placeholder="e.g. Apni Dukaan Digital Pehchaan"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6B1F2D] text-gray-800"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[#6B1F2D] focus:ring-2 focus:ring-[#6B1F2D]/20 text-gray-800 transition-all"
                 />
               </div>
 
@@ -346,9 +369,10 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                   <button
                     type="button"
                     onClick={handleAutoSuggestStory}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#6B1F2D] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6B1F2D] bg-[#F2D7C9]/40 hover:bg-[#F2D7C9] px-2.5 py-1 rounded-lg border border-[#C96F56]/30 transition-all shadow-xs group"
                   >
-                    <Wand2 className="w-3.5 h-3.5" /> Generate Story
+                    <Wand2 className="w-3.5 h-3.5 text-[#C96F56] group-hover:rotate-12 transition-transform" />
+                    <span>Generate Story</span>
                   </button>
                 </div>
                 <textarea
@@ -356,7 +380,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Briefly describe what makes your products and craftsmanship special..."
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6B1F2D] text-gray-800 text-sm leading-relaxed"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[#6B1F2D] focus:ring-2 focus:ring-[#6B1F2D]/20 text-gray-800 text-sm leading-relaxed transition-all"
                 />
               </div>
 
@@ -371,7 +395,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="e.g. Jaipur, Rajasthan"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6B1F2D] text-gray-800 text-sm"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[#6B1F2D] focus:ring-2 focus:ring-[#6B1F2D]/20 text-gray-800 text-sm transition-all"
                   />
                 </div>
                 <div>
@@ -383,7 +407,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. 9876543210"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6B1F2D] text-gray-800 text-sm"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[#6B1F2D] focus:ring-2 focus:ring-[#6B1F2D]/20 text-gray-800 text-sm transition-all"
                   />
                 </div>
               </div>
@@ -392,7 +416,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                 <button
                   type="button"
                   onClick={() => setActiveStep(2)}
-                  className="px-6 py-3 rounded-xl bg-[#6B1F2D] text-white font-bold text-sm shadow hover:bg-[#521621] transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-[#6B1F2D] text-white font-bold text-sm shadow hover:bg-[#521621] transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>Next: Choose Brand Colors</span>
                   <ArrowRight className="w-4 h-4" />
@@ -427,22 +451,30 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
                           : "border-gray-200 hover:border-gray-300 bg-white"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between mb-2">
                         <div className="font-bold text-sm text-gray-900">{pal.name}</div>
                         {isSelected && (
-                          <span className="w-5 h-5 rounded-full bg-[#6B1F2D] text-white flex items-center justify-center text-xs">
+                          <span className="w-5 h-5 rounded-full bg-[#6B1F2D] text-white flex items-center justify-center text-xs shadow-xs">
                             <Check className="w-3 h-3" />
                           </span>
                         )}
                       </div>
                       <p className="text-xs text-gray-500 mb-3">{pal.description}</p>
                       
-                      {/* Color swatches bar */}
-                      <div className="flex h-7 rounded-lg overflow-hidden border border-gray-200 shadow-inner">
-                        <div className="flex-1" style={{ backgroundColor: pal.primary }} title={`Primary: ${pal.primary}`} />
-                        <div className="flex-1" style={{ backgroundColor: pal.secondary }} title={`Secondary: ${pal.secondary}`} />
-                        <div className="flex-1" style={{ backgroundColor: pal.background }} title={`Background: ${pal.background}`} />
-                        <div className="flex-1" style={{ backgroundColor: pal.accent }} title={`Accent: ${pal.accent}`} />
+                      {/* Color swatches bar with functional labels */}
+                      <div className="space-y-1.5">
+                        <div className="flex h-7 rounded-lg overflow-hidden border border-gray-200 shadow-inner">
+                          <div className="flex-1 transition-transform hover:scale-105" style={{ backgroundColor: pal.primary }} title={`Primary: ${pal.primary}`} />
+                          <div className="flex-1 transition-transform hover:scale-105" style={{ backgroundColor: pal.secondary }} title={`Secondary: ${pal.secondary}`} />
+                          <div className="flex-1 transition-transform hover:scale-105" style={{ backgroundColor: pal.background }} title={`Background: ${pal.background}`} />
+                          <div className="flex-1 transition-transform hover:scale-105" style={{ backgroundColor: pal.accent }} title={`Accent: ${pal.accent}`} />
+                        </div>
+                        <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-tighter px-0.5">
+                          <span>Primary</span>
+                          <span>Secondary</span>
+                          <span>Canvas</span>
+                          <span>Accent</span>
+                        </div>
                       </div>
                     </div>
                   );

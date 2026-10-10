@@ -38,6 +38,11 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
       <div className="absolute top-[1300px] left-1/4 w-96 h-96 rounded-full bg-[#557153]/15 blur-3xl pointer-events-none animate-float-slow -z-10" />
       <div className="absolute bottom-80 right-12 w-96 h-96 rounded-full bg-[#F2D7C9]/35 blur-3xl pointer-events-none animate-float-reverse -z-10" />
 
+      {/* Subtle floating craft accent shapes */}
+      <div className="absolute top-28 left-[8%] w-14 h-14 rounded-full border border-[#C96F56]/25 pointer-events-none animate-float-slow hidden lg:block" style={{ willChange: "transform" }} />
+      <div className="absolute top-64 left-[42%] w-7 h-7 rounded-lg bg-[#557153]/15 rotate-12 pointer-events-none animate-float-reverse hidden lg:block" style={{ willChange: "transform" }} />
+      <div className="absolute top-44 right-[6%] w-10 h-10 rounded-full border border-[#557153]/25 pointer-events-none animate-float-slow hidden lg:block" style={{ willChange: "transform" }} />
+
       {/* 2. SECTION B: HERO SECTION */}
       <section className="relative pt-10 pb-20 lg:pt-16 lg:pb-28 border-b border-[#E8DDD2]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,13 +52,19 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               
               {/* Brand Tagline Badge */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white text-[#6B1F2D] text-xs font-extrabold shadow-xs border border-[#E8DDD2] animate-fade-in-up">
+              <div 
+                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white text-[#6B1F2D] text-xs font-extrabold shadow-xs border border-[#E8DDD2] animate-fade-in-up"
+                style={{ animationDelay: "100ms", animationFillMode: "both" }}
+              >
                 <DukaanlyLogo className="w-6 h-6" />
                 <span className="tracking-wide">Apni Dukaan Digital Pehchaan</span>
               </div>
 
               {/* Display Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2A1810] tracking-tight leading-[1.15] font-serif animate-fade-in-up">
+              <h1 
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2A1810] tracking-tight leading-[1.15] font-serif animate-fade-in-up"
+                style={{ animationDelay: "200ms", animationFillMode: "both" }}
+              >
                 Your business deserves a{" "}
                 <span className="text-[#6B1F2D] relative inline-block">
                   digital home.
@@ -64,12 +75,18 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
               </h1>
 
               {/* Supporting Copy */}
-              <p className="text-base sm:text-lg text-gray-700 max-w-2xl font-normal leading-relaxed">
+              <p 
+                className="text-base sm:text-lg text-gray-700 max-w-2xl font-normal leading-relaxed animate-fade-in-up"
+                style={{ animationDelay: "300ms", animationFillMode: "both" }}
+              >
                 Turn your business idea into a beautiful online storefront. Share what you sell, choose your style, and create a digital presence that feels like your brand.
               </p>
 
               {/* Action Buttons: Build My Store & Explore Demo Store */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <div 
+                className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up"
+                style={{ animationDelay: "400ms", animationFillMode: "both" }}
+              >
                 <button
                   onClick={() => onStartBuilding()}
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#6B1F2D] hover:bg-[#521621] text-white font-extrabold text-base shadow-lg shadow-[#6B1F2D]/20 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2.5 focus:ring-2 focus:ring-[#6B1F2D] focus:ring-offset-2 group"
@@ -81,7 +98,7 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
 
                 <button
                   onClick={() => onExploreDemo()}
-                  className="w-full sm:w-auto px-7 py-4 rounded-xl bg-white hover:bg-[#F5EFEB] text-[#2A1810] font-extrabold text-base border border-[#E8DDD2] shadow-xs transition-all hover:scale-[1.02] flex items-center justify-center gap-2.5"
+                  className="w-full sm:w-auto px-7 py-4 rounded-xl bg-white hover:bg-[#F5EFEB] text-[#2A1810] font-extrabold text-base border border-[#E8DDD2] shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2.5"
                 >
                   <Store className="w-5 h-5 text-[#C96F56]" />
                   <span>Explore Demo Store</span>
@@ -92,7 +109,10 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
               </div>
 
               {/* Value Propositions / Trust Indicators */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs font-bold text-gray-700 pt-3">
+              <div 
+                className="flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs font-bold text-gray-700 pt-3 animate-fade-in-up"
+                style={{ animationDelay: "500ms", animationFillMode: "both" }}
+              >
                 <span className="flex items-center gap-1.5 bg-white/70 px-3 py-1.5 rounded-lg border border-[#E8DDD2]">
                   <CheckCircle2 className="w-4 h-4 text-[#557153]" /> Free Local Generator
                 </span>
@@ -106,7 +126,10 @@ export default function LandingPage({ onStartBuilding, onQuickDemo, onExploreDem
             </div>
 
             {/* Right Column: Interactive Storefront Showcase Preview */}
-            <div className="lg:col-span-5">
+            <div 
+              className="lg:col-span-5 animate-fade-in-up"
+              style={{ animationDelay: "350ms", animationFillMode: "both" }}
+            >
               <div className="relative mx-auto max-w-md bg-white rounded-3xl shadow-xl border border-[#E8DDD2] overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
                 
                 {/* Store Header Preview Bar with dynamic theme color */}
