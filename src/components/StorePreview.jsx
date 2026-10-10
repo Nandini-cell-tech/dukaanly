@@ -176,14 +176,23 @@ export default function StorePreview({
       {/* 1. TOP BUILDER TOOLBAR (Floating control bar for the merchant) */}
       <header className="sticky top-0 z-30 bg-[#6B1F2D] text-white px-4 py-2.5 shadow-lg border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
         {/* Left actions: Back buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={onBackToLanding}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/20 hover:bg-black/30 text-xs font-bold transition-all text-[#F2D7C9]"
+            title="Return to Dukaanly Home"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-[#F2D7C9]" />
+            <span>Home</span>
+          </button>
+
           <button
             onClick={onBackToEdit}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-semibold transition-all"
             title="Return to form editor"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Edit Form Details</span>
+            <Edit3 className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Edit Details</span>
             <span className="sm:hidden">Edit</span>
           </button>
           

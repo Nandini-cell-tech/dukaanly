@@ -4,14 +4,38 @@ import LandingPage from "./components/LandingPage";
 import StoreForm from "./components/StoreForm";
 import StorePreview from "./components/StorePreview";
 import SockBotStore from "./components/SockBotStore";
+import WelcomeModal from "./components/WelcomeModal";
+import Toast from "./components/Toast";
 import { BUSINESS_CATEGORIES } from "./data/defaultTemplates";
 import { COLOR_PALETTES } from "./data/colorPalettes";
 
 const STORAGE_KEY = "dukaanly_store_data_v1";
+const WELCOME_KEY = "dukaanly_welcomed_v1";
 
 export default function App() {
   // Views: 'landing' | 'form' | 'store' | 'sockbot'
   const [currentView, setCurrentView] = useState("landing");
+
+  // Welcome Modal state (shows on first visit or when triggered via navbar)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(() => {
+    return !sessionStorage.getItem(WELCOME_KEY);
+  });
+
+  // Global Toast state
+  const [toast, setToast] = useState(null);
+
+  const showToast = (message, title = "Notification") => {
+    if (typeof message === "string") {
+      setToast({ message, title });
+    } else {
+      setToast(message);
+    }
+  };
+
+  const handleCloseWelcome = () => {
+    setShowWelcomeModal(false);
+    sessionStorage.setItem(WELCOME_KEY, "true");
+  };
 
   // Initial store data generator
   const getInitialStore = () => {
@@ -52,6 +76,8 @@ export default function App() {
 
   // Handler: Start Building from Landing page
   const handleStartBuilding = (template) => {
+    setShowWelcomeModal(false);
+    sessionStorage.setItem(WELCOME_KEY, "true");
     if (template) {
       setStoreData(prev => ({
         ...prev,
@@ -68,10 +94,13 @@ export default function App() {
       }));
     }
     setCurrentView("form");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Handler: Quick Demo Store Preview
   const handleQuickDemo = (categoryId) => {
+    setShowWelcomeModal(false);
+    sessionStorage.setItem(WELCOME_KEY, "true");
     const template = BUSINESS_CATEGORIES.find(c => c.id === categoryId) || BUSINESS_CATEGORIES[0];
     const pal = COLOR_PALETTES.find(p => p.primary === template.primaryColor) || COLOR_PALETTES[0];
 
@@ -95,6 +124,8 @@ export default function App() {
     setStoreData(demoStore);
     setHasGeneratedStore(true);
     setCurrentView("store");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    showToast("Loaded sample storefront for instant preview!", "Demo Storefront");
   };
 
   // Handler: Store generation from form
@@ -102,10 +133,31 @@ export default function App() {
     setStoreData(newStoreData);
     setHasGeneratedStore(true);
     setCurrentView("store");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    showToast("🎉 Storefront generated successfully! You can now preview and edit inline.", "Success");
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF6F2] font-sans antialiased text-gray-900 flex flex-col">
+    <div className="min-h-screen bg-[#FBF6F2] font-sans antialiased text-gray-900 flex flex-col relative selection:bg-[#C96F56] selection:text-white">
+      {/* Global Toast Notification */}
+      <Toast toast={toast} onClose={() => setToast(null)} />
+
+      {/* Global Welcome Modal */}
+      <WelcomeModal
+        isOpen={showWelcomeModal}
+        onClose={handleCloseWelcome}
+        onBuildStore={() => {
+          handleCloseWelcome();
+          setCurrentView("form");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        onExploreDemo={() => {
+          handleCloseWelcome();
+          setCurrentView("sockbot");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
+
       {/* Global Navbar (shown on landing and form views; storefront & SockBot have their own top builder bars) */}
       {currentView !== "store" && currentView !== "sockbot" && (
         <Navbar
@@ -113,7 +165,11 @@ export default function App() {
           setCurrentView={setCurrentView}
           hasStore={hasGeneratedStore}
           storeData={storeData}
-          onOpenSockBot={() => setCurrentView("sockbot")}
+          onOpenSockBot={() => {
+            setCurrentView("sockbot");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          onOpenWelcome={() => setShowWelcomeModal(true)}
         />
       )}
 
@@ -123,7 +179,10 @@ export default function App() {
           <LandingPage
             onStartBuilding={handleStartBuilding}
             onQuickDemo={handleQuickDemo}
-            onOpenSockBot={() => setCurrentView("sockbot")}
+            onOpenSockBot={() => {
+              setCurrentView("sockbot");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           />
         )}
 
@@ -131,22 +190,37 @@ export default function App() {
           <StoreForm
             initialData={storeData}
             onGenerateStore={handleGenerateStore}
-            onCancel={() => setCurrentView("landing")}
+            onCancel={() => {
+              setCurrentView("landing");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           />
         )}
 
         {currentView === "store" && (
           <StorePreview
             storeData={storeData}
-            onUpdateStoreData={setStoreData}
-            onBackToEdit={() => setCurrentView("form")}
-            onBackToLanding={() => setCurrentView("landing")}
+            onUpdateStoreData={(newData) => {
+              setStoreData(newData);
+              showToast("Changes saved to your storefront.", "Store Updated");
+            }}
+            onBackToEdit={() => {
+              setCurrentView("form");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            onBackToLanding={() => {
+              setCurrentView("landing");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           />
         )}
 
         {currentView === "sockbot" && (
           <SockBotStore
-            onBackToDukaanly={() => setCurrentView("landing")}
+            onBackToDukaanly={() => {
+              setCurrentView("landing");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           />
         )}
       </main>

@@ -407,26 +407,44 @@ export default function SockBotStore({ onBackToDukaanly }) {
               <div>
                 <h3 className="font-bold text-lg text-white flex items-center gap-2">
                   <Bot className="w-5 h-5 text-[#2DD4BF]" />
-                  <span>Interactive Chore Reward Demo</span>
+                  <span>Interactive Chore Reward Simulator</span>
                 </h3>
                 <p className="text-xs text-gray-400">
-                  Click the tasks below to simulate chore completion and unlock the burger reward:
+                  Click the tasks below or press the instant test button to simulate SockBot in action:
                 </p>
               </div>
 
-              {/* Reward Status Banner */}
-              <div className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ${
-                rewardUnlocked 
-                  ? "bg-[#F97316] text-white animate-pulse" 
-                  : "bg-white/10 text-gray-300"
-              }`}>
-                {rewardUnlocked ? (
-                  <>
-                    <Award className="w-4 h-4 text-yellow-300" />
-                    <span>🎉 BURGER REWARD UNLOCKED!</span>
-                  </>
+              {/* Instant Action / Reset Buttons */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {!rewardUnlocked ? (
+                  <button
+                    onClick={() => {
+                      setChores(prev => prev.map(c => ({ ...c, completed: true })));
+                      setRewardUnlocked(true);
+                      try {
+                        confetti({
+                          particleCount: 120,
+                          spread: 90,
+                          origin: { y: 0.6 },
+                          colors: ["#0D9488", "#F97316", "#FEF3C7", "#F2D7C9"]
+                        });
+                      } catch (e) {}
+                    }}
+                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#F97316] to-[#EA580C] hover:from-[#EA580C] hover:to-[#C2410C] text-white font-extrabold text-xs shadow-lg flex items-center gap-2 transition-all hover:scale-105 active:scale-95 border border-white/20"
+                  >
+                    <Zap className="w-4 h-4 text-yellow-300" />
+                    <span>Complete Chores &amp; Unlock Burger</span>
+                  </button>
                 ) : (
-                  <span>Locked: Complete all 3 chores</span>
+                  <button
+                    onClick={() => {
+                      setChores(prev => prev.map(c => ({ ...c, completed: false })));
+                      setRewardUnlocked(false);
+                    }}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-gray-200 font-bold text-xs flex items-center gap-2 transition-all border border-white/20"
+                  >
+                    <span>↺ Reset / Try Again</span>
+                  </button>
                 )}
               </div>
             </div>
@@ -458,21 +476,43 @@ export default function SockBotStore({ onBackToDukaanly }) {
               ))}
             </div>
 
+            {/* Exact Required Success Notification Banner */}
             {rewardUnlocked && (
-              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-[#F97316] to-[#EA580C] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">🍔</span>
+              <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-[#0D9488] via-[#0f766e] to-[#F97316] text-white flex flex-col sm:flex-row items-center justify-between gap-4 border-2 border-yellow-300/40 shadow-2xl animate-fade-in">
+                <div className="flex items-center gap-3.5 text-center sm:text-left">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shrink-0">
+                    🍔
+                  </div>
                   <div>
-                    <h5 className="font-extrabold text-sm">Chore-Master Smash Burger Ready!</h5>
-                    <p className="text-xs text-white/90">Your socks are paired and your craving reward coupon is activated.</p>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-yellow-400 text-gray-900 text-[10px] font-black uppercase tracking-wider mb-1">
+                      <Sparkles className="w-3 h-3" /> Reward Activated
+                    </div>
+                    <h5 className="font-extrabold text-base text-white">
+                      SockBot has paired your socks! Burger reward unlocked.
+                    </h5>
+                    <p className="text-xs text-white/90">
+                      Optical pairing verified: All socks matched. Free gourmet smash burger reward added!
+                    </p>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleAddToCart(products.find(p => p.id === "sb_burg1"))}
-                  className="px-4 py-2 rounded-xl bg-white text-[#EA580C] font-extrabold text-xs shadow hover:bg-gray-100"
-                >
-                  Add Free Burger to Cart
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleAddToCart(products.find(p => p.id === "sb_burg1"))}
+                    className="px-4 py-2.5 rounded-xl bg-white text-[#EA580C] font-extrabold text-xs shadow-lg hover:bg-gray-100 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95"
+                  >
+                    <span>Claim Free Burger in Bag</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setChores(prev => prev.map(c => ({ ...c, completed: false })));
+                      setRewardUnlocked(false);
+                    }}
+                    className="px-3 py-2.5 rounded-xl bg-black/30 hover:bg-black/40 text-white text-xs font-bold transition-all"
+                    title="Reset Simulator"
+                  >
+                    ↺ Reset
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -716,18 +756,21 @@ export default function SockBotStore({ onBackToDukaanly }) {
           <div className="flex items-center justify-center gap-2 text-lg font-black">
             <span>🧦 SockBot 🤖 🍔</span>
           </div>
-          <p className="text-gray-400 max-w-xl mx-auto">
-            SockBot is a fictional demonstration brand built on the <strong>Dukaanly</strong> platform to showcase the BRANDIT 3.0 <em>Connect the Unconnected</em> challenge (Socks + Robot + Burger).
+          <div className="inline-block px-4 py-1.5 rounded-full bg-[#0D9488]/20 border border-[#0D9488]/40 text-[#2DD4BF] text-xs font-bold">
+            Sample business created with Dukaanly for BRANDIT 3.0
+          </div>
+          <p className="text-gray-400 max-w-xl mx-auto text-xs leading-relaxed">
+            SockBot demonstrates how Dukaanly's AI-assisted website platform empowers any niche idea — even a quirky autonomous sock-pairing robot paired with gourmet burger rewards — to launch a complete, digital storefront in seconds.
           </p>
           <div className="pt-4 border-t border-gray-800 flex flex-wrap items-center justify-center gap-4 text-gray-400">
             <button
               onClick={onBackToDukaanly}
-              className="text-[#F97316] font-bold hover:underline"
+              className="px-4 py-2 rounded-xl bg-[#F97316] text-white font-extrabold hover:bg-[#EA580C] transition-all shadow"
             >
-              ⬅ Return to Dukaanly Website Builder
+              ⬅ Return to Dukaanly Homepage &amp; Builder
             </button>
             <span>•</span>
-            <span>Apni Dukaan Digital Pehchaan</span>
+            <span className="font-semibold text-gray-300">Apni Dukaan Digital Pehchaan</span>
           </div>
         </div>
       </footer>

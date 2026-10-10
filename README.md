@@ -157,6 +157,11 @@ npm run preview
 
 ---
 
-## 📄 License & Attribution
+## 📄 Team & Competition Attribution
 
-Created for **BRANDIT 3.0**. Distributed under the MIT License.
+- **Competition**: BRANDIT 3.0
+- **Team**: **TEAM 1206**
+- **Domain**: Small Businesses
+- **Platform**: Dukaanly — Apni Dukaan Digital Pehchaan
+- **Challenge Showcase**: SockBot (Socks + Robot + Burger)
+- **License**: MIT License
