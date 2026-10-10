@@ -1,12 +1,19 @@
 # Dukaanly (दुकानली) — Apni Dukaan Digital Pehchaan 🛍️🇮🇳
 
 > **BRANDIT 3.0 Hackathon Submission**  
-> An AI-powered digital storefront builder created for small businesses, home makers, and local artisans across Bharat.
+> An AI-assisted digital storefront builder created for small businesses, home makers, and local artisans across Bharat.
 
-[![Deploy to GitHub Pages](https://github.com/dukaanly/dukaanly/actions/workflows/deploy.yml/badge.svg)](https://github.com/dukaanly/dukaanly/actions/workflows/deploy.yml)
+[![Live Website](https://img.shields.io/badge/Live_Store-Online-success?style=for-the-badge&logo=githubpages&logoColor=white)](https://nandini-cell-tech.github.io/dukaanly/)
 [![Built with React 19](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Bundled with Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Styled with Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+---
+
+## 🌐 Live Website & Repository
+
+- 🚀 **Live Deployed Website**: **[https://nandini-cell-tech.github.io/dukaanly/](https://nandini-cell-tech.github.io/dukaanly/)**
+- 📁 **GitHub Repository**: **[https://github.com/Nandini-cell-tech/dukaanly](https://github.com/Nandini-cell-tech/dukaanly)**
 
 ---
 
@@ -16,24 +23,42 @@ Traditional Indian merchants, home bakers, and regional artisans often struggle 
 
 ---
 
-## 🎨 Official Brand Identity
+## 🎨 Official Brand Identity & Color Palette
 
 | Brand Element | Theme Value | Role in Dukaanly |
 | :--- | :--- | :--- |
 | **Brand Name** | **Dukaanly** | Master platform identity |
 | **Tagline** | *Apni Dukaan Digital Pehchaan* | Slogan & branding mark |
-| **Primary (Burgundy)** | `#6B1F2D` | Primary actions, headings, logo typography |
-| **Secondary (Terracotta)** | `#C96F56` | Accents, badges, hero gradients |
-| **Base Canvas (Cream)** | `#FBF6F2` | Warm background tone, card highlights |
-| **Accent (Sage)** | `#557153` | Trust badges, organic indicators, WhatsApp tags |
+| **Burgundy** | `#6B1F2D` | Primary actions, headings, logo typography |
+| **Terracotta** | `#C96F56` | Accents, badges, hero gradients |
+| **Blush** | `#F2D7C9` | Soft highlights, canopy accents, subtle cards |
+| **Cream** | `#FBF6F2` | Warm base canvas, card backgrounds |
+| **Sage Green** | `#557153` | Trust badges, organic indicators, WhatsApp tags |
 
 ---
 
-## ✨ Key Features
+## 🤖 Featured Showcase: SockBot ("Connect the Unconnected")
+
+Built for the **BRANDIT 3.0** challenge connecting three unrelated items: **Socks, a Robot, and a Burger**:
+
+- **Fictional Brand**: **SockBot**
+- **Tagline**: *“Pair your socks. Power your cravings.”*
+- **Concept**: A quirky robot pairs your mismatched laundry socks with optical sensors and automatically fires an order for your favorite smash burger when you finish your chores!
+- **Visual Identity**: Playful Cyber Teal (`#0D9488`), Burger Cheddar Orange (`#F97316`), Sesame Bun Cream (`#FEF3C7`), and Dark Slate (`#0F172A`).
+- **Interactive Features in SockBot**:
+  - Interactive Chore Checklist Simulator (Fold laundry, clean desk, complete tasks)
+  - Robotic Sock Pairing & Burger Reward unlocked at 100% chore completion
+  - Product catalog featuring funky cyberpunk socks and sizzling burger rewards (clearly marked with illustrative demo prices)
+  - 1-click WhatsApp order formatting & slide-out Craving Bag
+  - Bidirectional *"Back to Dukaanly"* navigation
+
+---
+
+## ✨ Core Dukaanly Platform Features
 
 1. **Premium Landing Page**:
-   - Modern hero section with value propositions tailored for Indian small business owners (0% commission, WhatsApp direct commerce, 30-second setup).
-   - Interactive live preview card with one-click category switching (*Handicrafts & Pottery, Artisanal Bakery, Ethnic Sarees, Chai Cafe, Organic Spices*).
+   - Modern hero section with MSME value propositions (0% commission, WhatsApp direct commerce, 30-second setup).
+   - Interactive live preview card with one-click category switching (*Handicrafts & Pottery, Artisanal Bakery, Ethnic Sarees, Chai Cafe, Organic Spices, and SockBot Challenge*).
    - 3-step workflow explanation.
    - Real-world MSME testimonials from Jaipur, Pune, and Lucknow.
 
@@ -75,14 +100,7 @@ Traditional Indian merchants, home bakers, and regional artisans often struggle 
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Effects**: [canvas-confetti](https://www.npmjs.com/package/canvas-confetti)
-- **Deployment**: GitHub Actions / GitHub Pages
-
----
-
-## ⚙️ Prerequisites
-
-- **Node.js**: `v18.0.0` or higher (LTS recommended)
-- **NPM**: `v9.0.0` or higher
+- **Deployment**: GitHub Pages / GitHub Actions
 
 ---
 
@@ -107,47 +125,35 @@ Traditional Indian merchants, home bakers, and regional artisans often struggle 
 
 ---
 
-## 🚀 Build & Deployment
+## 🚀 Build & Deployment Instructions
 
 ### Build for Production
 To generate an optimized production build:
 ```bash
 npm run build
 ```
-The output files will be compiled into the `dist/` directory.
+The output files will be compiled into the `dist/` directory with relative asset paths (`base: './'`).
 
-### Preview Production Build
+### Preview Production Build Locally
 ```bash
 npm run preview
 ```
 
-### Deploying to GitHub Pages
-This repository is configured with an automated GitHub Actions workflow (`.github/workflows/deploy.yml`):
-1. Push your changes to the `main` branch.
-2. In your GitHub repository, navigate to **Settings** > **Pages**.
-3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
-4. GitHub Actions will automatically build and deploy your site to `https://<username>.github.io/dukaanly/`.
+### GitHub Pages Deployment
+1. Build the production output: `npm run build`
+2. Push the built `dist/` directory to the `gh-pages` branch.
+3. In repository **Settings** > **Pages**, ensure source is set to `gh-pages` branch at root `/`.
 
 ---
 
-## 📸 Application Preview
+## 🧪 Testing Checklist for Evaluators
 
-```
-+-----------------------------------------------------------------------------------+
-|  [Logo] Dukaanly • Apni Dukaan Digital Pehchaan               [ Launch Store ]   |
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|  Convert Your Local Dukaan Into A Digital Pehchaan In 30 Seconds.                 |
-|                                                                                   |
-|  [ 🏺 Pottery ]  [ 🥐 Bakery ]  [ 🥻 Sarees ]  [ ☕ Chai ]  [ 🌿 Spices ]         |
-|                                                                                   |
-|  +---------------------------+  +-----------------------------------------------+ |
-|  | 1. Enter Business Profile |  | Live Preview Card                             | |
-|  | 2. Choose Brand Colors    |  | Mitti & Clay Studio                           | |
-|  | 3. Generate Storefront    |  | Terracotta Chai Kulhad Set - ₹499             | |
-|  +---------------------------+  +-----------------------------------------------+ |
-+-----------------------------------------------------------------------------------+
-```
+1. **Logo Rendering**: Open the site on mobile or desktop; verify the Dukaanly logo (store canopy, letter D with wooden door and sage leaves) loads immediately in the header and footer with zero broken images.
+2. **SockBot Demo**: Click **"Try the SockBot Demo"** on the navbar or homepage banner; verify the playful Teal & Orange storefront loads with the Robot-Socks-Burger hero.
+3. **Chore Simulator**: On the SockBot page, check off the 3 chores in the interactive checklist; verify that celebratory confetti fires and the *"Chore-Master Smash Burger"* reward is unlocked!
+4. **Website Builder**: Click **"Back to Dukaanly Home"** ➔ **"Store Builder"**; enter custom details or choose a category preset; click **"Generate My Store"**; verify your customized storefront renders instantly.
+5. **Inline Product Editing**: Click **"✏️ Edit Products"** on the storefront toolbar; edit a product title and price in ₹; verify the live update on the card and in the cart.
+6. **Mobile Viewport**: Click **"Mobile (375px)"** on the top toolbar to preview inside the iPhone mockup frame.
 
 ---
 

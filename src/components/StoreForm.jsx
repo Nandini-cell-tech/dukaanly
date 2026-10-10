@@ -20,6 +20,7 @@ import confetti from "canvas-confetti";
 import { BUSINESS_CATEGORIES } from "../data/defaultTemplates";
 import { COLOR_PALETTES } from "../data/colorPalettes";
 import { suggestTagline, generateBrandStory } from "../utils/aiGenerator";
+import DukaanlyLogo from "./DukaanlyLogo";
 
 export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
   // Form State
@@ -185,11 +186,7 @@ export default function StoreForm({ initialData, onGenerateStore, onCancel }) {
       {isGenerating && (
         <div className="fixed inset-0 z-50 bg-[#6B1F2D]/90 backdrop-blur-md flex flex-col items-center justify-center text-white px-4">
           <div className="relative mb-6">
-            <img 
-              src="/dukaanly-logo.png" 
-              alt="Dukaanly" 
-              className="w-24 h-24 rounded-3xl object-cover shadow-2xl animate-bounce border-2 border-white/30 bg-white" 
-            />
+            <DukaanlyLogo className="w-24 h-24 rounded-3xl shadow-2xl animate-bounce" />
             <div className="absolute -inset-2 rounded-3xl border-2 border-white/40 animate-ping pointer-events-none" />
           </div>
           <h3 className="text-2xl font-bold tracking-tight mb-2">Generating Your Dukaanly Store</h3>

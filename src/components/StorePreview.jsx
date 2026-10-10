@@ -23,6 +23,7 @@ import {
 import CartDrawer from "./CartDrawer";
 import ShareModal from "./ShareModal";
 import { COLOR_PALETTES } from "../data/colorPalettes";
+import DukaanlyLogo from "./DukaanlyLogo";
 
 export default function StorePreview({
   storeData,
@@ -629,7 +630,7 @@ export default function StorePreview({
                 </div>
                 <div className="pt-4 border-t border-gray-800 text-gray-400 text-[11px] flex items-center justify-center gap-2">
                   <span>Powered by</span>
-                  <img src="/dukaanly-logo.png" alt="Dukaanly" className="w-5 h-5 rounded-md object-contain inline-block bg-white p-0.5" />
+                  <DukaanlyLogo className="w-6 h-6 inline-block" />
                   <strong className="text-white font-serif tracking-wide">Dukaanly</strong>
                   <span className="text-[#C96F56] font-semibold hidden sm:inline">— Apni Dukaan Digital Pehchaan</span>
                 </div>

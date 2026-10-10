@@ -1,33 +1,17 @@
 import React from "react";
-import { Store, Sparkles, ArrowRight, Smartphone, Monitor } from "lucide-react";
+import { Store, Sparkles, ArrowRight, Bot } from "lucide-react";
+import DukaanlyLogo from "./DukaanlyLogo";
 
-export default function Navbar({ currentView, setCurrentView, hasStore, storeData }) {
+export default function Navbar({ currentView, setCurrentView, hasStore, storeData, onOpenSockBot }) {
   return (
-    <header className="sticky top-0 z-40 bg-[#FBF6F2]/90 backdrop-blur-md border-b border-[#6B1F2D]/10">
+    <header className="sticky top-0 z-40 bg-[#FBF6F2]/95 backdrop-blur-md border-b border-[#6B1F2D]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand Logo & Tagline */}
         <div 
           onClick={() => setCurrentView("landing")}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center cursor-pointer group"
         >
-          <img 
-            src="/dukaanly-logo.png" 
-            alt="Dukaanly Logo" 
-            className="w-12 h-12 rounded-2xl object-cover shadow-md shadow-[#6B1F2D]/15 group-hover:scale-105 transition-transform border border-[#6B1F2D]/10 bg-white" 
-          />
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-2xl tracking-tight text-[#6B1F2D] font-serif">
-                Dukaan<span className="text-[#C96F56]">ly</span>
-              </span>
-              <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-[#557153]/15 text-[#557153] border border-[#557153]/20">
-                v1.0 Local Engine
-              </span>
-            </div>
-            <p className="text-[11px] font-medium text-[#C96F56] tracking-wide -mt-0.5">
-              Apni Dukaan Digital Pehchaan
-            </p>
-          </div>
+          <DukaanlyLogo className="w-11 h-11 sm:w-12 sm:h-12" showTagline={true} />
         </div>
 
         {/* Center Navigation Links (Hidden on small screens) */}
@@ -38,12 +22,25 @@ export default function Navbar({ currentView, setCurrentView, hasStore, storeDat
           >
             Overview
           </button>
+          
           <button 
             onClick={() => setCurrentView("form")}
             className={`transition-colors hover:text-[#6B1F2D] ${currentView === "form" ? "text-[#6B1F2D] font-bold" : ""}`}
           >
             Store Builder
           </button>
+
+          {/* SockBot BRANDIT 3.0 Demo Button */}
+          <button
+            onClick={onOpenSockBot}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#0D9488]/15 text-[#0D9488] border border-[#0D9488]/30 hover:bg-[#0D9488]/25 transition-all shadow-sm"
+            title="Explore BRANDIT 3.0 Challenge: Socks + Robot + Burger"
+          >
+            <Bot className="w-3.5 h-3.5 text-[#0D9488]" />
+            <span>SockBot Demo</span>
+            <span className="text-[10px] bg-[#F97316] text-white px-1.5 py-0.2 rounded-full font-sans font-bold">New</span>
+          </button>
+
           {hasStore && (
             <button 
               onClick={() => setCurrentView("store")}
@@ -56,20 +53,30 @@ export default function Navbar({ currentView, setCurrentView, hasStore, storeDat
         </nav>
 
         {/* Right CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Mobile SockBot Pill */}
+          <button
+            onClick={onOpenSockBot}
+            className="md:hidden flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[#0D9488]/15 text-[#0D9488] border border-[#0D9488]/30"
+          >
+            <Bot className="w-3.5 h-3.5" />
+            <span>SockBot</span>
+          </button>
+
           {currentView !== "form" ? (
             <button
               onClick={() => setCurrentView("form")}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#6B1F2D] text-white text-sm font-semibold shadow-md shadow-[#6B1F2D]/20 hover:bg-[#541622] transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#6B1F2D] text-white text-xs sm:text-sm font-semibold shadow-md shadow-[#6B1F2D]/20 hover:bg-[#541622] transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Sparkles className="w-4 h-4 text-[#FBF6F2]" />
-              <span>Create Store</span>
-              <ArrowRight className="w-4 h-4" />
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FBF6F2]" />
+              <span className="hidden sm:inline">Create Store</span>
+              <span className="sm:hidden">Create</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           ) : (
             <button
               onClick={() => setCurrentView("landing")}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              className="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
             >
               Back to Home
             </button>

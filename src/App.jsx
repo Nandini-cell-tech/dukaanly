@@ -3,13 +3,14 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
 import StoreForm from "./components/StoreForm";
 import StorePreview from "./components/StorePreview";
+import SockBotStore from "./components/SockBotStore";
 import { BUSINESS_CATEGORIES } from "./data/defaultTemplates";
 import { COLOR_PALETTES } from "./data/colorPalettes";
 
 const STORAGE_KEY = "dukaanly_store_data_v1";
 
 export default function App() {
-  // Views: 'landing' | 'form' | 'store'
+  // Views: 'landing' | 'form' | 'store' | 'sockbot'
   const [currentView, setCurrentView] = useState("landing");
 
   // Initial store data generator
@@ -105,13 +106,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FBF6F2] font-sans antialiased text-gray-900 flex flex-col">
-      {/* Global Navbar (shown on landing and form views; storefront has its own top builder bar) */}
-      {currentView !== "store" && (
+      {/* Global Navbar (shown on landing and form views; storefront & SockBot have their own top builder bars) */}
+      {currentView !== "store" && currentView !== "sockbot" && (
         <Navbar
           currentView={currentView}
           setCurrentView={setCurrentView}
           hasStore={hasGeneratedStore}
           storeData={storeData}
+          onOpenSockBot={() => setCurrentView("sockbot")}
         />
       )}
 
@@ -121,6 +123,7 @@ export default function App() {
           <LandingPage
             onStartBuilding={handleStartBuilding}
             onQuickDemo={handleQuickDemo}
+            onOpenSockBot={() => setCurrentView("sockbot")}
           />
         )}
 
@@ -138,6 +141,12 @@ export default function App() {
             onUpdateStoreData={setStoreData}
             onBackToEdit={() => setCurrentView("form")}
             onBackToLanding={() => setCurrentView("landing")}
+          />
+        )}
+
+        {currentView === "sockbot" && (
+          <SockBotStore
+            onBackToDukaanly={() => setCurrentView("landing")}
           />
         )}
       </main>

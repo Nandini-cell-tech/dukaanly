@@ -13,18 +13,20 @@ import {
   Eye, 
   Zap,
   ShoppingBag,
-  ExternalLink
+  ExternalLink,
+  Bot
 } from "lucide-react";
 import { BUSINESS_CATEGORIES } from "../data/defaultTemplates";
+import DukaanlyLogo from "./DukaanlyLogo";
 
-export default function LandingPage({ onStartBuilding, onQuickDemo }) {
+export default function LandingPage({ onStartBuilding, onQuickDemo, onOpenSockBot }) {
   const [activeCategoryTab, setActiveCategoryTab] = useState(BUSINESS_CATEGORIES[0].id);
   const selectedTemplate = BUSINESS_CATEGORIES.find(c => c.id === activeCategoryTab) || BUSINESS_CATEGORIES[0];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-[#6B1F2D]/10 bg-gradient-to-b from-[#FBF6F2] via-[#FBF6F2] to-[#FAF2EB]">
+      <section className="relative overflow-hidden pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-[#6B1F2D]/10 bg-gradient-to-b from-[#FBF6F2] via-[#FBF6F2] to-[#FAF2EB]">
         {/* Subtle decorative background blobs */}
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#6B1F2D]/5 via-[#C96F56]/10 to-[#557153]/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
@@ -33,15 +35,17 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
             
             {/* Left Column: Headline, Value Props & CTAs */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Logo Emblem & Tagline Badge */}
+              
+              {/* Logo Emblem & Tagline Badge with reliable DukaanlyLogo component */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white text-[#6B1F2D] text-xs font-bold shadow-sm border border-[#6B1F2D]/10">
-                  <img src="/dukaanly-logo.png" alt="Dukaanly" className="w-6 h-6 rounded-lg object-contain" />
+                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white text-[#6B1F2D] text-xs font-bold shadow-sm border border-[#6B1F2D]/15">
+                  <DukaanlyLogo className="w-7 h-7" />
                   <span>Dukaanly • Apni Dukaan Digital Pehchaan</span>
                 </div>
+                
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#557153]/15 text-[#557153] text-xs font-bold border border-[#557153]/20">
                   <Sparkles className="w-3.5 h-3.5 text-[#557153]" />
-                  <span>Next-Gen Storefront Builder</span>
+                  <span>AI-Assisted Website Builder</span>
                 </div>
               </div>
 
@@ -58,17 +62,49 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg sm:text-xl text-gray-700 max-w-2xl font-normal leading-relaxed">
-                Enter your business name, story, and products. Dukaanly designs a customised, mobile-friendly online storefront with <span className="font-semibold text-[#6B1F2D]">WhatsApp checkout</span>, UPI payment integration, and brand color presets.
+              <p className="text-base sm:text-lg text-gray-700 max-w-2xl font-normal leading-relaxed">
+                Enter your business name, story, and products. Dukaanly designs a customised, mobile-friendly online storefront with <span className="font-semibold text-[#6B1F2D]">WhatsApp checkout</span>, UPI payment integration, and heritage brand color presets.
               </p>
 
-              {/* Zero-Cost & Local engine trust tag */}
+              {/* BRANDIT 3.0 Special Challenge Card (Socks + Robot + Burger) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#042F2E] to-[#0D9488] text-white border-2 border-[#14B8A6]/40 shadow-lg text-left relative overflow-hidden group">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-[#F97316] text-white flex items-center justify-center text-xl shrink-0 shadow-md">
+                      🤖
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-extrabold text-sm text-[#FEF3C7]">
+                          BRANDIT 3.0 Challenge: Connect the Unconnected
+                        </span>
+                        <span className="bg-[#F97316] text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full uppercase">
+                          Featured Demo
+                        </span>
+                      </div>
+                      <p className="text-xs text-teal-100 font-medium mt-0.5">
+                        Meet <strong>SockBot</strong>: A quirky robot pairs your socks and orders your favourite burger!
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={onOpenSockBot}
+                    className="self-start sm:self-center px-4 py-2 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-extrabold text-xs shadow-md transition-all hover:scale-105 flex items-center gap-1.5 whitespace-nowrap"
+                  >
+                    <span>Try the SockBot Demo</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Zero-Cost & Local engine trust tags */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-semibold text-gray-600 pt-1">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#557153]" /> 100% Free Client-Side Logic
+                  <CheckCircle2 className="w-4 h-4 text-[#557153]" /> 100% Client-Side Engine
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#557153]" /> Zero Paid API Requirements
+                  <CheckCircle2 className="w-4 h-4 text-[#557153]" /> 0% Platform Commission
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-[#557153]" /> Real-time Editable Products
@@ -91,25 +127,22 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
                   className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white hover:bg-gray-50 text-gray-800 font-bold text-base border border-gray-200 shadow-sm transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
                 >
                   <Eye className="w-5 h-5 text-[#C96F56]" />
-                  <span>Preview Demo Store</span>
+                  <span>Explore Demo Store</span>
                 </button>
               </div>
 
-              {/* Stats Bar */}
-              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-gray-200/80 max-w-lg mx-auto lg:mx-0">
-                <div>
-                  <div className="text-2xl font-extrabold text-[#6B1F2D]">₹0</div>
-                  <div className="text-xs text-gray-500 font-medium">Platform Fee</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-extrabold text-[#C96F56]">30s</div>
-                  <div className="text-xs text-gray-500 font-medium">Setup Speed</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-extrabold text-[#557153]">100%</div>
-                  <div className="text-xs text-gray-500 font-medium">WhatsApp Direct</div>
+              {/* Brand Colour Palette Swatch Bar */}
+              <div className="pt-4 flex items-center justify-center lg:justify-start gap-2 text-xs font-semibold text-gray-600">
+                <span className="text-[11px] text-gray-500 uppercase tracking-wider font-bold">Dukaanly Palette:</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-5 h-5 rounded-full border border-gray-300 shadow-sm" style={{ backgroundColor: "#6B1F2D" }} title="Burgundy #6B1F2D" />
+                  <span className="w-5 h-5 rounded-full border border-gray-300 shadow-sm" style={{ backgroundColor: "#C96F56" }} title="Terracotta #C96F56" />
+                  <span className="w-5 h-5 rounded-full border border-gray-300 shadow-sm" style={{ backgroundColor: "#F2D7C9" }} title="Blush #F2D7C9" />
+                  <span className="w-5 h-5 rounded-full border border-gray-300 shadow-sm" style={{ backgroundColor: "#FBF6F2" }} title="Cream #FBF6F2" />
+                  <span className="w-5 h-5 rounded-full border border-gray-300 shadow-sm" style={{ backgroundColor: "#557153" }} title="Sage #557153" />
                 </div>
               </div>
+
             </div>
 
             {/* Right Column: Interactive Live Preview Card */}
@@ -139,7 +172,7 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
                   </p>
                 </div>
 
-                {/* Quick Category Selector Pills */}
+                {/* Quick Category Selector Pills including SockBot special option */}
                 <div className="p-3 bg-gray-50 border-b border-gray-200 flex items-center gap-1.5 overflow-x-auto text-xs scrollbar-none">
                   {BUSINESS_CATEGORIES.map((cat) => (
                     <button
@@ -154,6 +187,14 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
                       {cat.icon} {cat.name.split(" ")[0]}
                     </button>
                   ))}
+                  
+                  {/* SockBot Shortcut Pill */}
+                  <button
+                    onClick={onOpenSockBot}
+                    className="whitespace-nowrap px-3 py-1.5 rounded-lg font-bold bg-[#0D9488]/15 text-[#0D9488] border border-[#0D9488]/30 hover:bg-[#0D9488]/25 transition-all"
+                  >
+                    🤖 SockBot (Demo)
+                  </button>
                 </div>
 
                 {/* Preview Product Card */}
@@ -245,7 +286,7 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
                 Choose Brand Colors
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Pick from authentic heritage themes like Dukaanly Burgundy, Terracotta Glow, and Sage Botanica, or customize your own brand palette.
+                Pick from authentic heritage themes like Dukaanly Burgundy, Terracotta, Blush & Sage, or customize your own brand palette.
               </p>
             </div>
 
@@ -304,7 +345,7 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
               </div>
               <h4 className="font-bold text-gray-900 text-lg mb-2">Indian Brand Aesthetics</h4>
               <p className="text-xs text-gray-600 leading-relaxed">
-                Warm Terracotta, deep Burgundy, and earthy Sage colors resonate with traditional craft and culinary warmth.
+                Burgundy, Terracotta, Blush, and Sage colors resonate with traditional craft and culinary warmth.
               </p>
             </div>
 
@@ -384,12 +425,8 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
 
       {/* CTA Footer Banner */}
       <section className="py-16 bg-gradient-to-br from-[#6B1F2D] via-[#521621] to-[#3B0E17] text-white text-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <img 
-            src="/dukaanly-logo.png" 
-            alt="Dukaanly Logo" 
-            className="w-20 h-20 rounded-3xl mx-auto mb-4 object-cover shadow-2xl border-2 border-white/20 bg-white" 
-          />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center">
+          <DukaanlyLogo className="w-20 h-20 mb-4" />
           <span className="text-xs font-bold uppercase tracking-wider text-[#C96F56] bg-white/10 px-3 py-1 rounded-full">
             Apni Dukaan Digital Pehchaan
           </span>
@@ -399,14 +436,25 @@ export default function LandingPage({ onStartBuilding, onQuickDemo }) {
           <p className="text-base sm:text-lg text-white/80 max-w-xl mx-auto mb-8 font-normal">
             No technical knowledge required. Fill your business details, choose your colors, and generate your store in seconds.
           </p>
-          <button
-            onClick={() => onStartBuilding()}
-            className="px-8 py-4 rounded-xl bg-[#C96F56] hover:bg-[#b55f48] text-white font-bold text-base shadow-xl transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2"
-          >
-            <Sparkles className="w-5 h-5 text-yellow-200" />
-            <span>Start Building My Storefront</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <button
+              onClick={() => onStartBuilding()}
+              className="px-8 py-4 rounded-xl bg-[#C96F56] hover:bg-[#b55f48] text-white font-bold text-base shadow-xl transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2"
+            >
+              <Sparkles className="w-5 h-5 text-yellow-200" />
+              <span>Start Building My Storefront</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+
+            <button
+              onClick={onOpenSockBot}
+              className="px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/20 shadow-md transition-all hover:scale-105 flex items-center gap-2"
+            >
+              <Bot className="w-5 h-5 text-[#2DD4BF]" />
+              <span>Explore SockBot Demo</span>
+            </button>
+          </div>
         </div>
       </section>
     </div>
