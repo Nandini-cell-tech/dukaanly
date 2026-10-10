@@ -90,7 +90,7 @@ Traditional Indian merchants, home bakers, and regional artisans often struggle 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/dukaanly/dukaanly.git
+   git clone https://github.com/Nandini-cell-tech/dukaanly.git
    cd dukaanly
    ```
 
