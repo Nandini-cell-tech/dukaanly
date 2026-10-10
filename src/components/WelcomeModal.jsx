@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { X, Sparkles, Store, ArrowRight, Bot } from "lucide-react";
+import { X, Sparkles, Store, ArrowRight } from "lucide-react";
 import DukaanlyLogo from "./DukaanlyLogo";
 
 export default function WelcomeModal({ isOpen, onClose, onBuildStore, onExploreDemo }) {
@@ -45,13 +45,13 @@ export default function WelcomeModal({ isOpen, onClose, onBuildStore, onExploreD
             Apni Dukaan Digital Pehchaan
           </span>
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-serif">
             Your business deserves a digital home.
           </h2>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-6 bg-[#FBF6F2]/40">
+        <div className="p-6 sm:p-8 space-y-6 bg-[#FDFBF7]">
           <p className="text-sm sm:text-base text-gray-700 text-center leading-relaxed font-normal">
             Create a storefront that feels like your brand. In 30 seconds, add your products, choose your colors, and connect your orders directly to WhatsApp.
           </p>
@@ -74,9 +74,9 @@ export default function WelcomeModal({ isOpen, onClose, onBuildStore, onExploreD
                 onClose();
                 onExploreDemo();
               }}
-              className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-gray-50 text-gray-800 font-bold text-sm border border-gray-200 shadow-sm transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-[#F5EFEB] text-gray-800 font-bold text-sm border border-[#E8DDD2] shadow-sm transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
             >
-              <Bot className="w-4 h-4 text-[#0D9488]" />
+              <Store className="w-4 h-4 text-[#C96F56]" />
               <span>Explore Demo Store</span>
             </button>
           </div>

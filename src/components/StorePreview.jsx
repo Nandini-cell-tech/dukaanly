@@ -459,121 +459,137 @@ export default function StorePreview({
                   </button>
                 </div>
               ) : (
-                <div className={`grid gap-4 sm:gap-6 ${
+                <div className={`grid gap-5 sm:gap-6 ${
                   viewportMode === "mobile" 
                     ? "grid-cols-1" 
                     : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                 }`}>
-                  {filteredProducts.map((prod) => (
-                    <div
-                      key={prod.id}
-                      className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group relative"
-                    >
-                      {/* Product Image & Badges */}
-                      <div className="relative aspect-square overflow-hidden bg-gray-100">
-                        <img
-                          src={prod.image}
-                          alt={prod.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {prod.badge && (
-                          <span 
-                            className="absolute top-2.5 left-2.5 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow"
-                            style={{ backgroundColor: storeData.primaryColor }}
-                          >
-                            {prod.badge}
-                          </span>
-                        )}
-
-                        {/* Inline Delete Button (in edit mode) */}
-                        {isEditMode && (
-                          <button
-                            onClick={() => handleDeleteProduct(prod.id)}
-                            className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-red-600 text-white shadow hover:bg-red-700 transition-colors"
-                            title="Delete this product"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                      </div>
-
-                      {/* Product Info with REQUIREMENT 5 (Editable product names and prices) */}
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                          <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                            {prod.category || "General"}
-                          </div>
-
-                          {/* Product Name (Editable if isEditMode is true) */}
-                          {isEditMode ? (
-                            <div className="mb-2">
-                              <label className="text-[9px] font-bold text-yellow-700 block">Edit Title:</label>
-                              <input
-                                type="text"
-                                value={prod.name}
-                                onChange={(e) => handleUpdateProductInline(prod.id, "name", e.target.value)}
-                                className="w-full text-sm font-bold text-gray-900 border-2 border-yellow-300 rounded px-1.5 py-1 focus:outline-none focus:border-yellow-500 bg-yellow-50/50"
-                              />
-                            </div>
-                          ) : (
-                            <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 mb-1">
-                              {prod.name}
-                            </h3>
+                  {filteredProducts.map((prod) => {
+                    const cartItem = cartItems.find(i => i.id === prod.id);
+                    return (
+                      <div
+                        key={prod.id}
+                        className="bg-white rounded-3xl border border-gray-200/90 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group relative card-warm-hover"
+                      >
+                        {/* Product Image & Badges */}
+                        <div className="relative aspect-square overflow-hidden bg-[#F5EFEB]">
+                          <img
+                            src={prod.image}
+                            alt={prod.name}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80";
+                            }}
+                            className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                          />
+                          {prod.badge && (
+                            <span 
+                              className="absolute top-3 left-3 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-md tracking-wide"
+                              style={{ backgroundColor: storeData.primaryColor }}
+                            >
+                              {prod.badge}
+                            </span>
                           )}
 
-                          <p className="text-xs text-gray-500 line-clamp-2 mb-3">
-                            {prod.description}
-                          </p>
+                          {/* Inline Delete Button (in edit mode) */}
+                          {isEditMode && (
+                            <button
+                              onClick={() => handleDeleteProduct(prod.id)}
+                              className="absolute top-3 right-3 p-1.5 rounded-full bg-red-600 text-white shadow-md hover:bg-red-700 transition-colors"
+                              title="Delete this product"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                         </div>
 
-                        {/* Price & Action Row */}
-                        <div className="pt-2 border-t border-gray-100 flex items-center justify-between mt-auto">
-                          
-                          {/* Product Price (Editable if isEditMode is true) */}
+                        {/* Product Details */}
+                        <div className="p-5 flex-1 flex flex-col justify-between">
                           <div>
+                            <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                              {prod.category || "General"}
+                            </div>
+
+                            {/* Product Name (Editable if isEditMode is true) */}
                             {isEditMode ? (
-                              <div>
-                                <label className="text-[9px] font-bold text-yellow-700 block">Edit Price (₹):</label>
-                                <div className="flex items-center">
-                                  <span className="text-xs font-bold text-gray-500 mr-1">₹</span>
-                                  <input
-                                    type="number"
-                                    value={prod.price}
-                                    onChange={(e) => handleUpdateProductInline(prod.id, "price", Number(e.target.value))}
-                                    className="w-20 text-sm font-extrabold text-[#6B1F2D] border-2 border-yellow-300 rounded px-1 py-0.5 focus:outline-none focus:border-yellow-500 bg-yellow-50/50"
-                                  />
-                                </div>
+                              <div className="mb-2">
+                                <label className="text-[9px] font-bold text-yellow-700 block">Edit Title:</label>
+                                <input
+                                  type="text"
+                                  value={prod.name}
+                                  onChange={(e) => handleUpdateProductInline(prod.id, "name", e.target.value)}
+                                  className="w-full text-sm font-bold text-gray-900 border-2 border-yellow-300 rounded-lg px-2 py-1 focus:outline-none focus:border-yellow-500 bg-yellow-50/50"
+                                />
                               </div>
                             ) : (
-                              <div className="flex items-baseline gap-1.5">
-                                <span 
-                                  className="text-base font-extrabold"
-                                  style={{ color: storeData.primaryColor }}
-                                >
-                                  ₹{prod.price}
-                                </span>
-                                {prod.originalPrice && (
-                                  <span className="text-[11px] text-gray-400 line-through">
-                                    ₹{prod.originalPrice}
-                                  </span>
-                                )}
-                              </div>
+                              <h3 className="font-bold text-[#2A1810] text-base leading-snug line-clamp-2 mb-1.5">
+                                {prod.name}
+                              </h3>
                             )}
+
+                            <p className="text-xs text-gray-600 line-clamp-2 mb-4 leading-relaxed">
+                              {prod.description}
+                            </p>
                           </div>
 
-                          {/* Add to Bag Button */}
-                          <button
-                            onClick={() => handleAddToCart(prod)}
-                            className="px-3.5 py-1.5 rounded-xl text-white text-xs font-bold shadow-sm transition-transform hover:scale-105 active:scale-95 flex items-center gap-1.5"
-                            style={{ backgroundColor: storeData.primaryColor }}
-                          >
-                            <ShoppingBag className="w-3.5 h-3.5" />
-                            <span>Add</span>
-                          </button>
+                          {/* Price & Action Row */}
+                          <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
+                            
+                            {/* Product Price */}
+                            <div>
+                              {isEditMode ? (
+                                <div>
+                                  <label className="text-[9px] font-bold text-yellow-700 block">Edit Price (₹):</label>
+                                  <div className="flex items-center">
+                                    <span className="text-xs font-bold text-gray-500 mr-1">₹</span>
+                                    <input
+                                      type="number"
+                                      value={prod.price}
+                                      onChange={(e) => handleUpdateProductInline(prod.id, "price", Number(e.target.value))}
+                                      className="w-20 text-sm font-extrabold text-[#6B1F2D] border-2 border-yellow-300 rounded-lg px-1.5 py-0.5 focus:outline-none focus:border-yellow-500 bg-yellow-50/50"
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex items-baseline gap-1.5">
+                                  <span 
+                                    className="text-lg font-black"
+                                    style={{ color: storeData.primaryColor }}
+                                  >
+                                    ₹{prod.price}
+                                  </span>
+                                  {prod.originalPrice && (
+                                    <span className="text-xs text-gray-400 line-through">
+                                      ₹{prod.originalPrice}
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Add to Bag Button with Micro-Interaction feedback */}
+                            <button
+                              onClick={() => handleAddToCart(prod)}
+                              className="px-3.5 py-2 rounded-xl text-white text-xs font-bold shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 focus:ring-2 focus:ring-offset-1"
+                              style={{ backgroundColor: storeData.primaryColor }}
+                            >
+                              {cartItem ? (
+                                <>
+                                  <Check className="w-3.5 h-3.5 text-[#F2D7C9]" />
+                                  <span>In Bag ({cartItem.quantity})</span>
+                                </>
+                              ) : (
+                                <>
+                                  <ShoppingBag className="w-3.5 h-3.5" />
+                                  <span>Add</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </section>

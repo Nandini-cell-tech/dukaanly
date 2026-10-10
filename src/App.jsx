@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
 import StoreForm from "./components/StoreForm";
 import StorePreview from "./components/StorePreview";
-import SockBotStore from "./components/SockBotStore";
 import WelcomeModal from "./components/WelcomeModal";
 import Toast from "./components/Toast";
 import { BUSINESS_CATEGORIES } from "./data/defaultTemplates";
@@ -13,7 +12,7 @@ const STORAGE_KEY = "dukaanly_store_data_v1";
 const WELCOME_KEY = "dukaanly_welcomed_v1";
 
 export default function App() {
-  // Views: 'landing' | 'form' | 'store' | 'sockbot'
+  // Views: 'landing' | 'form' | 'store'
   const [currentView, setCurrentView] = useState("landing");
 
   // Welcome Modal state (shows on first visit or when triggered via navbar)
@@ -97,8 +96,8 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Handler: Quick Demo Store Preview
-  const handleQuickDemo = (categoryId) => {
+  // Handler: Quick Demo Store Preview (Mitti & Clay Studio or chosen category)
+  const handleQuickDemo = (categoryId = "handicrafts") => {
     setShowWelcomeModal(false);
     sessionStorage.setItem(WELCOME_KEY, "true");
     const template = BUSINESS_CATEGORIES.find(c => c.id === categoryId) || BUSINESS_CATEGORIES[0];
@@ -125,7 +124,7 @@ export default function App() {
     setHasGeneratedStore(true);
     setCurrentView("store");
     window.scrollTo({ top: 0, behavior: "smooth" });
-    showToast("Loaded sample storefront for instant preview!", "Demo Storefront");
+    showToast(`Loaded live demo store: ${demoStore.name}`, "Demo Storefront");
   };
 
   // Handler: Store generation from form
@@ -138,7 +137,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF6F2] font-sans antialiased text-gray-900 flex flex-col relative selection:bg-[#C96F56] selection:text-white">
+    <div className="min-h-screen bg-[#FDFBF7] font-sans antialiased text-[#2A1810] flex flex-col relative selection:bg-[#C96F56] selection:text-white">
       {/* Global Toast Notification */}
       <Toast toast={toast} onClose={() => setToast(null)} />
 
@@ -153,22 +152,18 @@ export default function App() {
         }}
         onExploreDemo={() => {
           handleCloseWelcome();
-          setCurrentView("sockbot");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          handleQuickDemo("handicrafts");
         }}
       />
 
-      {/* Global Navbar (shown on landing and form views; storefront & SockBot have their own top builder bars) */}
-      {currentView !== "store" && currentView !== "sockbot" && (
+      {/* Global Navbar (shown on landing and form views; storefront has its own top builder bar) */}
+      {currentView !== "store" && (
         <Navbar
           currentView={currentView}
           setCurrentView={setCurrentView}
           hasStore={hasGeneratedStore}
           storeData={storeData}
-          onOpenSockBot={() => {
-            setCurrentView("sockbot");
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onOpenDemo={() => handleQuickDemo("handicrafts")}
           onOpenWelcome={() => setShowWelcomeModal(true)}
         />
       )}
@@ -179,10 +174,7 @@ export default function App() {
           <LandingPage
             onStartBuilding={handleStartBuilding}
             onQuickDemo={handleQuickDemo}
-            onOpenSockBot={() => {
-              setCurrentView("sockbot");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            onExploreDemo={() => handleQuickDemo("handicrafts")}
           />
         )}
 
@@ -209,15 +201,6 @@ export default function App() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             onBackToLanding={() => {
-              setCurrentView("landing");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
-        )}
-
-        {currentView === "sockbot" && (
-          <SockBotStore
-            onBackToDukaanly={() => {
               setCurrentView("landing");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}

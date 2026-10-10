@@ -48,15 +48,15 @@ export const COLOR_PALETTES = [
     badge: "Festive & Luxury"
   },
   {
-    id: "sockbot-cyber",
-    name: "SockBot High-Voltage (BRANDIT Challenge)",
-    description: "Playful Cyber Teal and Burger Orange with crisp cream and dark slate",
-    primary: "#0D9488", // Teal
-    secondary: "#F97316", // Orange
-    blush: "#FEF3C7", // Bun cream
-    background: "#F0FDFA", // Light teal tint
-    accent: "#042F2E", // Dark slate
+    id: "espresso-terracotta",
+    name: "Espresso & Terracotta Artisanal",
+    description: "Deep espresso and chocolate brown paired with warm terracotta and sage accents",
+    primary: "#3D271D", // Deep Espresso
+    secondary: "#C96F56", // Terracotta
+    blush: "#F2D7C9", // Soft Warm Blush
+    background: "#FDFBF7", // Warm Ivory Cream
+    accent: "#557153", // Sage Green
     textOnPrimary: "#FFFFFF",
-    badge: "Challenge Special"
+    badge: "Artisan Reserve"
   }
 ];

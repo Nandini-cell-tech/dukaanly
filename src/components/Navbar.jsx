@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sparkles, ArrowRight, Bot, Menu, X, HelpCircle, Layers } from "lucide-react";
+import { Sparkles, ArrowRight, Store, Menu, X, HelpCircle, Layers } from "lucide-react";
 import DukaanlyLogo from "./DukaanlyLogo";
 
 export default function Navbar({ 
@@ -7,17 +7,10 @@ export default function Navbar({
   setCurrentView, 
   hasStore, 
   storeData, 
-  onOpenSockBot, 
+  onOpenDemo, 
   onOpenWelcome 
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleNavClick = (action) => {
-    setMobileMenuOpen(false);
-    if (typeof action === "function") {
-      action();
-    }
-  };
 
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
@@ -38,7 +31,7 @@ export default function Navbar({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FBF6F2]/95 backdrop-blur-md border-b border-[#6B1F2D]/10">
+    <header className="sticky top-0 z-40 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#E8DDD2]/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Logo & Tagline */}
@@ -56,7 +49,7 @@ export default function Navbar({
         </div>
 
         {/* Center Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-700">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#2A1810]">
           <button 
             onClick={() => {
               setCurrentView("landing");
@@ -81,14 +74,14 @@ export default function Navbar({
             Features
           </button>
 
-          {/* Explore Demo (SockBot BRANDIT 3.0 Demo) */}
+          {/* Explore Demo Store */}
           <button
-            onClick={onOpenSockBot}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-extrabold bg-[#0D9488]/15 text-[#0D9488] border border-[#0D9488]/30 hover:bg-[#0D9488]/25 transition-all shadow-sm"
+            onClick={onOpenDemo}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#6B1F2D] bg-[#F2D7C9]/40 border border-[#C96F56]/30 hover:bg-[#F2D7C9]/80 transition-all shadow-xs"
           >
-            <Bot className="w-3.5 h-3.5 text-[#0D9488]" />
-            <span>Explore Demo</span>
-            <span className="text-[10px] bg-[#F97316] text-white px-1.5 py-0.2 rounded-full font-bold">SockBot</span>
+            <Store className="w-3.5 h-3.5 text-[#C96F56]" />
+            <span>Demo Store</span>
+            <span className="text-[10px] bg-[#C96F56] text-white px-1.5 py-0.2 rounded-full font-bold">Sample</span>
           </button>
 
           {hasStore && (
@@ -107,7 +100,7 @@ export default function Navbar({
           {onOpenWelcome && (
             <button
               onClick={onOpenWelcome}
-              className="p-2 rounded-xl text-gray-500 hover:text-[#6B1F2D] hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-xl text-gray-500 hover:text-[#6B1F2D] hover:bg-[#F5EFEB] transition-colors"
               title="Tour & Welcome Info"
               aria-label="Tour and Welcome Info"
             >
@@ -127,7 +120,7 @@ export default function Navbar({
           ) : (
             <button
               onClick={() => setCurrentView("landing")}
-              className="px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              className="px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:text-gray-900 hover:bg-[#F5EFEB] transition-colors"
             >
               Back to Home
             </button>
@@ -139,7 +132,7 @@ export default function Navbar({
           {currentView !== "form" && (
             <button
               onClick={() => setCurrentView("form")}
-              className="px-3 py-1.5 rounded-xl bg-[#6B1F2D] text-white text-xs font-bold shadow-sm"
+              className="px-3 py-1.5 rounded-xl bg-[#6B1F2D] text-white text-xs font-bold shadow-xs"
             >
               Build Store
             </button>
@@ -147,7 +140,7 @@ export default function Navbar({
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-gray-700 hover:text-[#6B1F2D] hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-xl text-gray-700 hover:text-[#6B1F2D] hover:bg-[#F5EFEB] transition-colors"
             aria-label="Toggle mobile navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -158,14 +151,14 @@ export default function Navbar({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-200 px-5 pt-3 pb-6 space-y-3 animate-fade-in shadow-xl">
+        <div className="md:hidden bg-[#FDFBF7]/98 backdrop-blur-md border-b border-[#E8DDD2] px-5 pt-3 pb-6 space-y-3 animate-fade-in shadow-xl">
           <button 
             onClick={() => {
               setMobileMenuOpen(false);
               setCurrentView("landing");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="w-full text-left py-2 font-bold text-gray-800 hover:text-[#6B1F2D]"
+            className="w-full text-left py-2 font-bold text-[#2A1810] hover:text-[#6B1F2D]"
           >
             Home
           </button>
@@ -187,16 +180,16 @@ export default function Navbar({
           <button
             onClick={() => {
               setMobileMenuOpen(false);
-              onOpenSockBot();
+              onOpenDemo();
             }}
-            className="w-full text-left py-2 flex items-center justify-between font-bold text-[#0D9488]"
+            className="w-full text-left py-2 flex items-center justify-between font-bold text-[#6B1F2D]"
           >
             <div className="flex items-center gap-2">
-              <Bot className="w-4 h-4" />
-              <span>Explore Demo (SockBot)</span>
+              <Store className="w-4 h-4 text-[#C96F56]" />
+              <span>Explore Demo Store (Mitti & Clay)</span>
             </div>
-            <span className="text-[10px] bg-[#F97316] text-white px-2 py-0.5 rounded-full font-bold">
-              Challenge Demo
+            <span className="text-[10px] bg-[#C96F56] text-white px-2 py-0.5 rounded-full font-bold">
+              Sample Dukaan
             </span>
           </button>
 
@@ -213,7 +206,7 @@ export default function Navbar({
             </button>
           )}
 
-          <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#E8DDD2] flex flex-col gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
